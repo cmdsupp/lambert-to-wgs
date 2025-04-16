@@ -7,7 +7,15 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const { x, y } = req.body;
+  let { x, y } = req.body;
+
+  x = parseFloat(x);
+  y = parseFloat(y);
+  
+  if (isNaN(x) || isNaN(y)) {
+    return res.status(400).json({ error: 'Invalid input' });
+  }
+  
 
   if (typeof x !== 'number' || typeof y !== 'number') {
     return res.status(400).json({ error: 'Invalid input' });
